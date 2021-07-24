@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScriptParser", "..\ScriptParser\ScriptParser.csproj", "{32428A6A-C91B-42B1-9B98-88A5FF5B1ABC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelParser", "..\ExcelParser\ExcelParser.csproj", "{EED3601F-6D7C-4D8C-9DDD-D541FE46AA98}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{32428A6A-C91B-42B1-9B98-88A5FF5B1ABC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32428A6A-C91B-42B1-9B98-88A5FF5B1ABC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32428A6A-C91B-42B1-9B98-88A5FF5B1ABC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EED3601F-6D7C-4D8C-9DDD-D541FE46AA98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EED3601F-6D7C-4D8C-9DDD-D541FE46AA98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EED3601F-6D7C-4D8C-9DDD-D541FE46AA98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EED3601F-6D7C-4D8C-9DDD-D541FE46AA98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

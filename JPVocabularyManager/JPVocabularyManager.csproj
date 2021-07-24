@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ExcelParser\ExcelParser.csproj" />
     <ProjectReference Include="..\ScriptParser\ScriptParser.csproj" />
   </ItemGroup>
 </Project>
