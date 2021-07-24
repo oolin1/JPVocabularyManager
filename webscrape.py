@@ -1,13 +1,12 @@
 # pip install bs4           | outside of script
 # python -m pip install --upgrade  | consider
 
+import sys
 import bs4
 from urllib.request import urlopen as uReq
 from bs4 import BeautifulSoup as soup
 
-
-my_url = 'https://jisho.org/search/%E5%87%BA%20%23kanji'
-# need html encoding for that
+my_url = str(sys.argv[1])
 
 uClient = uReq(my_url)
 page_html = uClient.read()
