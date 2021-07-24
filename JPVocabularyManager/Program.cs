@@ -1,9 +1,11 @@
-﻿using System;
+﻿using ScriptParsers;
+using System;
 
 namespace JPVocabularyManager {
-    class Program {
+    public class Program {
         static void Main(string[] args) {
-            Console.WriteLine("Hello World!");
+            ScriptParser scriptParser = new ScriptParser(Constants.PythonScriptPath);
+            Console.Write(scriptParser.RunScript(""));
         }
     }
 }
