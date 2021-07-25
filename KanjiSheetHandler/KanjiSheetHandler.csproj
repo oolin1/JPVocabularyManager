@@ -8,4 +8,8 @@
     <Folder Include="Resources\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ExcelParser\ExcelParser.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,16 +1,18 @@
-﻿using ExcelParser;
+﻿using KanjiSheetHandler;
 using ScriptParsers;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Web;
 
 namespace JPVocabularyManager {
     public class Program {
         static void Main(string[] args) {
-            List<string> kanjis;
-            using (ExcelReader excelReader = new ExcelReader(@"C:\Users\margy\Desktop\laptop\im agile.xlsx", "漢字")) {
-                kanjis = excelReader.GetKanjis("AB7");
-            }
+            string filePath = Path.GetFullPath(@"..\..\..\..\KanjiSheetHandler\Resources\Sample Kanji Sheet.xlsx");
+            string sheetName = "Kanji";
+
+            KanjiSheetReader kanjiSheetReader = new KanjiSheetReader(filePath, sheetName);
+            List<string> kanjis = kanjiSheetReader.ReadKanjisFromRange("A1", "T608");
 
             foreach (string kanji in kanjis) {
                 ScriptParser scriptParser = new ScriptParser(Constants.PythonScriptPath);
