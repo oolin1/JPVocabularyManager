@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using Excel = Microsoft.Office.Interop.Excel;
+using Converter = ExcelParser.ExcelCellNameConverter;
 using Marshal = System.Runtime.InteropServices.Marshal;
 
 namespace ExcelParser {
@@ -30,7 +30,7 @@ namespace ExcelParser {
             xlApp.ScreenUpdating = false;
         }
 
-        public List<string> GetKanjis(string range) {
+        public List<string> GetKanjis(string cell) {
             List<string> cellValues = new List<string>();
 
             for (int i = 4; i <= 4; i++) { // burnt in values for now
@@ -41,7 +41,7 @@ namespace ExcelParser {
         }
 
         public string GetKanji(int column, int row) {
-            return GetKanji(ConvertIndexToExcelRange(column, row));
+            return GetKanji(Converter.ExcelCellIndicesToName(column, row));
         }
 
         public string GetKanji(string range) {
@@ -53,54 +53,6 @@ namespace ExcelParser {
             }
 
             return null;
-        }
-
-        public string ConvertIndexToExcelRange(int column, int row) {
-            return string.Format("{0}{1}", ExcelColumnNumberToName(column), row.ToString());
-        }
-
-        public Tuple<int, int> ConvertExcelRangeToIndex(string range) { 
-            /// TODO: safety checks
-            string columnString = Regex.Match(range, @"[a-zA-Z]+").Value;
-            string rowString = Regex.Match(range, @"[0-9]+").Value;
-
-            int column = ExcelColumnNameToNumber(columnString);
-            int row;
-            if (!Int32.TryParse(rowString, out row)) {
-                throw new InvalidCastException("todo tryparse failed");
-            }
-
-            return new Tuple<int, int>(column, row);
-        }
-
-        public int ExcelColumnNameToNumber(string columnName) {
-            if (string.IsNullOrEmpty(columnName)) {
-                throw new ArgumentNullException("columnName");
-            }
-
-            columnName = columnName.ToUpperInvariant();
-            int sum = 0;
-
-            for (int i = 0; i < columnName.Length; i++) {
-                sum *= 26;
-                sum += (columnName[i] - 'A' + 1);
-            }
-
-            return sum;
-        }
-
-        public string ExcelColumnNumberToName(int columnNumber) {
-            int dividend = columnNumber;
-            string columnName = String.Empty;
-            int modulo;
-
-            while (dividend > 0) {
-                modulo = (dividend - 1) % 26;
-                columnName = Convert.ToChar(65 + modulo).ToString() + columnName;
-                dividend = (dividend - modulo) / 26;
-            }
-
-            return columnName;
         }
 
         public void Dispose() {
@@ -116,7 +68,6 @@ namespace ExcelParser {
             Marshal.ReleaseComObject(xlRange);
             Marshal.ReleaseComObject(xlWorksheet);
             Marshal.ReleaseComObject(xlWorksheets);
-            xlWorkbook.Save();
             xlWorkbook.Close(true);
             Marshal.ReleaseComObject(xlWorkbook);
             Marshal.ReleaseComObject(xlWorkbooks);

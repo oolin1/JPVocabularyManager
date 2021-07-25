@@ -9,7 +9,7 @@ namespace JPVocabularyManager {
         static void Main(string[] args) {
             List<string> kanjis;
             using (ExcelReader excelReader = new ExcelReader(@"C:\Users\margy\Desktop\laptop\im agile.xlsx", "漢字")) {
-                kanjis = excelReader.GetKanjis("B4");
+                kanjis = excelReader.GetKanjis("AB7");
             }
 
             foreach (string kanji in kanjis) {
