@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Excel = Microsoft.Office.Interop.Excel;
-using Converter = ExcelParser.ExcelCellNameConverter;
 using Marshal = System.Runtime.InteropServices.Marshal;
 
 namespace ExcelParser {
@@ -32,16 +31,6 @@ namespace ExcelParser {
             xlApp.ScreenUpdating = false;
         }
 
-        public List<string> GetKanjis(string cell) {
-            List<string> cellValues = GetRangeValues("B4", "B5");
-            
-            return cellValues;
-        }
-
-        public string GetKanji(int column, int row) {
-            return GetCellValue(Converter.ExcelCellIndicesToName(column, row));
-        }
-
         public List<string> GetRangeValues(string from, string to) {
             List<string> result = new List<string>();
             Excel.Range xlRange = xlWorksheet.get_Range(from, to);
@@ -58,18 +47,6 @@ namespace ExcelParser {
             }
 
             return result;
-        }
-
-        public string GetCellValue(string cell) {
-            Excel.Range xlRange = xlWorksheet.get_Range(cell);
-            xlRanges.Add(xlRange);
-
-            var cellValueVar = xlRange.Value;
-            if (cellValueVar != null) {
-                return cellValueVar.ToString();
-            }
-
-            return null;
         }
 
         public void Dispose() {
