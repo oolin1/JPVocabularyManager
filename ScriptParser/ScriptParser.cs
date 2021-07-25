@@ -12,7 +12,7 @@ namespace ScriptParsers {
         public string RunScript(string args) {
             ProcessStartInfo start = new ProcessStartInfo();
             start.FileName = Constants.PythonExePath;
-            start.Arguments = string.Format("{0} {1}", scriptPath, args);
+            start.Arguments = $"{scriptPath} {args}";
             start.UseShellExecute = false;
             start.RedirectStandardOutput = true;
 

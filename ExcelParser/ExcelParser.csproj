@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExcelCellNameConverter.cs" />
+    <Compile Include="ExcelHelper.cs" />
     <Compile Include="ExcelReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

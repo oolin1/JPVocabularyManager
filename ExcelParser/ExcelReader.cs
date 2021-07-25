@@ -6,15 +6,16 @@ using Marshal = System.Runtime.InteropServices.Marshal;
 
 namespace ExcelParser {
     public class ExcelReader : IDisposable {
-        private Excel.Application xlApp;
-        private Excel.Workbooks xlWorkbooks;
-        private Excel.Workbook xlWorkbook;
-        private Excel.Sheets xlWorksheets;
-        private Excel._Worksheet xlWorksheet;
-        private Excel.Range xlRange;
+        private readonly Excel.Application xlApp;
+        private readonly Excel.Workbooks xlWorkbooks;
+        private readonly Excel.Workbook xlWorkbook;
+        private readonly Excel.Sheets xlWorksheets;
+        private readonly Excel._Worksheet xlWorksheet;
+        private readonly List<Excel.Range> xlRanges;
 
-        private string filePath;
-        private string sheetName;
+        private readonly string filePath;
+        private readonly string sheetName;
+        
         private bool isDisposed;
 
         public ExcelReader(string filePath, string sheetName) {
@@ -26,28 +27,44 @@ namespace ExcelParser {
             xlWorkbook = xlWorkbooks.Open(filePath);
             xlWorksheets = xlWorkbook.Worksheets;
             xlWorksheet = xlWorksheets[sheetName];
+            xlRanges = new List<Excel.Range>();
 
             xlApp.ScreenUpdating = false;
         }
 
         public List<string> GetKanjis(string cell) {
-            List<string> cellValues = new List<string>();
-
-            for (int i = 4; i <= 4; i++) { // burnt in values for now
-                cellValues.Add(GetKanji(2, i));
-            }
-
+            List<string> cellValues = GetRangeValues("B4", "B5");
+            
             return cellValues;
         }
 
         public string GetKanji(int column, int row) {
-            return GetKanji(Converter.ExcelCellIndicesToName(column, row));
+            return GetCellValue(Converter.ExcelCellIndicesToName(column, row));
         }
 
-        public string GetKanji(string range) {
-            xlRange = xlWorksheet.get_Range(range);
+        public List<string> GetRangeValues(string from, string to) {
+            List<string> result = new List<string>();
+            Excel.Range xlRange = xlWorksheet.get_Range(from, to);
+            xlRanges.Add(xlRange);
             var cellValueVar = xlRange.Value;
-            
+
+            (int, int) distance = ExcelHelper.CalculateCellDistance(from, to);
+            for (int i = 0; i <= distance.Item2; i++) {
+                for (int j = 0; j <= distance.Item1; j++) {
+                    if (cellValueVar[i+1, j+1] != null) {
+                        result.Add(cellValueVar[i+1, j+1].ToString());
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public string GetCellValue(string cell) {
+            Excel.Range xlRange = xlWorksheet.get_Range(cell);
+            xlRanges.Add(xlRange);
+
+            var cellValueVar = xlRange.Value;
             if (cellValueVar != null) {
                 return cellValueVar.ToString();
             }
@@ -65,7 +82,9 @@ namespace ExcelParser {
                 return;
             }
 
-            Marshal.ReleaseComObject(xlRange);
+            for (int i=0; i<xlRanges.Count; i++) {
+                Marshal.ReleaseComObject(xlRanges[i]);
+            }
             Marshal.ReleaseComObject(xlWorksheet);
             Marshal.ReleaseComObject(xlWorksheets);
             xlWorkbook.Close(true);
@@ -73,13 +92,6 @@ namespace ExcelParser {
             Marshal.ReleaseComObject(xlWorkbooks);
             xlApp.Quit();
             Marshal.ReleaseComObject(xlApp);
-
-            xlRange = null;
-            xlWorksheet = null;
-            xlWorksheets = null;
-            xlWorkbook = null;
-            xlWorkbooks = null;
-            xlApp = null;
 
             isDisposed = true;
         }
