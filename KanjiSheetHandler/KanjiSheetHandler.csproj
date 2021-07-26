@@ -12,4 +12,10 @@
     <ProjectReference Include="..\ExcelParser\ExcelParser.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Resources\Kanji Sheet Sample .xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -8,7 +8,8 @@ using System.Web;
 namespace JPVocabularyManager {
     public class Program {
         static void Main(string[] args) {
-            string filePath = Path.GetFullPath(@"..\..\..\..\KanjiSheetHandler\Resources\Sample Kanji Sheet.xlsx");
+            string filePath = Path.GetFullPath(@"..\..\..\..\KanjiSheetHandler\Resources\Kanji Sheet Sample.xlsx");
+            Path.GetRelativePath(Directory.GetCurrentDirectory(), @"C:\Project\JPVocabularyManager\KanjiSheetHandler\Resources\Kanji Sheet Sample.xlsx");
             string sheetName = "Kanji";
 
             KanjiSheetReader kanjiSheetReader = new KanjiSheetReader(filePath, sheetName);
