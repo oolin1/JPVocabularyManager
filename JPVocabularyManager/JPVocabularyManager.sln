@@ -3,18 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JPVocabularyManager", "JPVocabularyManager.csproj", "{DF2B69B2-B9DB-4272-8384-8FFA7CFA7A01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JPVocabularyManager", "JPVocabularyManager.csproj", "{DF2B69B2-B9DB-4272-8384-8FFA7CFA7A01}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0CAE4F41-B11A-4F72-8A74-F44C783ABA13}"
 	ProjectSection(SolutionItems) = preProject
 		..\webscrape.py = ..\webscrape.py
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScriptParser", "..\ScriptParser\ScriptParser.csproj", "{32428A6A-C91B-42B1-9B98-88A5FF5B1ABC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScriptParser", "..\ScriptParser\ScriptParser.csproj", "{32428A6A-C91B-42B1-9B98-88A5FF5B1ABC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelParser", "..\ExcelParser\ExcelParser.csproj", "{EED3601F-6D7C-4D8C-9DDD-D541FE46AA98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KanjiSheetHandler", "..\KanjiSheetHandler\KanjiSheetHandler.csproj", "{06C1C4F0-8542-4A52-AFF7-5B17F199F6AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KanjiSheetHandler", "..\KanjiSheetHandler\KanjiSheetHandler.csproj", "{06C1C4F0-8542-4A52-AFF7-5B17F199F6AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseHandler", "..\JPVocabularyDatabase\DatabaseHandler.csproj", "{0E716AB2-C8A9-43DF-9FE2-22164ACBAFEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +40,10 @@ Global
 		{06C1C4F0-8542-4A52-AFF7-5B17F199F6AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06C1C4F0-8542-4A52-AFF7-5B17F199F6AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06C1C4F0-8542-4A52-AFF7-5B17F199F6AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E716AB2-C8A9-43DF-9FE2-22164ACBAFEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E716AB2-C8A9-43DF-9FE2-22164ACBAFEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E716AB2-C8A9-43DF-9FE2-22164ACBAFEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E716AB2-C8A9-43DF-9FE2-22164ACBAFEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

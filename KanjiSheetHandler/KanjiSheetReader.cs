@@ -1,7 +1,8 @@
-﻿using ExcelParser;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using ExcelParser;
+using Converter = ExcelParser.ExcelCellNameConverter;
 
 namespace KanjiSheetHandler {
     public class KanjiSheetReader {
@@ -13,10 +14,9 @@ namespace KanjiSheetHandler {
             this.sheetName = sheetName;
         }
 
-
         public List<string> ReadKanjisFromRange(string from, string to, int kanjiColumnsDistance = 5) {
-            (int, int) fromCell = ExcelCellNameConverter.ExcelCellNameToIndices(from);
-            (int, int) toCell = ExcelCellNameConverter.ExcelCellNameToIndices(to);
+            (int, int) fromCell = Converter.ExcelCellNameToIndices(from);
+            (int, int) toCell = Converter.ExcelCellNameToIndices(to);
 
             List<string> columns = GetColumnsToRead(fromCell.Item1, toCell.Item1, kanjiColumnsDistance);
             List<string> kanjis = new List<string>();
@@ -32,7 +32,7 @@ namespace KanjiSheetHandler {
         private List<string> GetColumnsToRead(int firstColumn, int lastColumn, int kanjiColumnsDistance) {
             List<string> columns = new List<string>();
             for (int i = firstColumn; i <= lastColumn; i = i + kanjiColumnsDistance) {
-                columns.Add(ExcelCellNameConverter.ExcelColumnNumberToName(i));
+                columns.Add(Converter.ExcelColumnNumberToName(i));
             }
 
             return columns;
