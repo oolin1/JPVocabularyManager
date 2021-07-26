@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\JPVocabularyDatabase\DatabaseHandler.csproj" />
+    <ProjectReference Include="..\DatabaseHandler\DatabaseHandler.csproj" />
     <ProjectReference Include="..\KanjiSheetHandler\KanjiSheetHandler.csproj" />
     <ProjectReference Include="..\ScriptParser\ScriptParser.csproj" />
   </ItemGroup>
