@@ -1,35 +1,61 @@
-﻿using Microsoft.Data.Sqlite;
-using System;
+﻿using DatabaseHandler;
+using Microsoft.Data.Sqlite;
+using System.IO;
+using System.Text;
 
 namespace JPVocabularyDatabase {
     public class DbHandler {
+        private SqliteConnectionStringBuilder connectionStringBuilder;
         public DbHandler() {
-            SqliteConnectionStringBuilder connectionStringBuilder = new SqliteConnectionStringBuilder();
+            connectionStringBuilder = new SqliteConnectionStringBuilder();
             connectionStringBuilder.DataSource = @"C:\Project\JPVocabularyManager\JPVocabularyDatabase\VocabularyDatabase.db";
+        }
+
+        public void ClearDb() {
             using (SqliteConnection connection = new SqliteConnection(connectionStringBuilder.ConnectionString)) {
                 connection.Open();
 
-                var tableCmd = connection.CreateCommand();
-                tableCmd.CommandText = "CREATE TABLE ...";
-                tableCmd.ExecuteNonQuery();
+                SqliteCommand clearCmd = connection.CreateCommand();
+                clearCmd.CommandText = File.ReadAllText(@"C:\Project\JPVocabularyManager\JPVocabularyDatabase\clearDb.sql");
+                clearCmd.ExecuteNonQuery();
 
+                connection.Close();
+            }
+        }
+
+        public void AddKanji(Kanji kanji) {
+            using (SqliteConnection connection = new SqliteConnection(connectionStringBuilder.ConnectionString)) {
+                connection.Open();
 
                 using (SqliteTransaction transaction = connection.BeginTransaction()) {
-                    SqliteCommand instertCmd = connection.CreateCommand();
-                    instertCmd.CommandText = "INSERT INTO Kanjis VALUES('id', 'kanji' ...";
-                    instertCmd.ExecuteNonQuery();
+                    SqliteCommand insertCmd = connection.CreateCommand();
+                    
+                    insertCmd.CommandText = $"INSERT INTO Kanjis('HeisingID','Kanji') VALUES('{kanji.HeisingID}','{kanji.Text}');";
+                    insertCmd.ExecuteNonQuery();
 
                     transaction.Commit();
                 }
 
+                connection.Close();
+            }
+        }
+
+        public string GetKanji(string kanji) {
+            using (SqliteConnection connection = new SqliteConnection(connectionStringBuilder.ConnectionString)) {
+                connection.Open();
+
                 SqliteCommand selectCmd = connection.CreateCommand();
-                selectCmd.CommandText = "SELECT * FROM Kanjis";
+                selectCmd.CommandText = $"SELECT * FROM Kanjis WHERE Kanji = '{kanji}'";
+
+                StringBuilder stringBuilder = new StringBuilder();
                 using (SqliteDataReader reader = selectCmd.ExecuteReader()) {
                     while (reader.Read()) {
-                        string result = reader.GetString(0);
-                        Console.WriteLine(result);
+                        stringBuilder.Append(reader.GetString(0));
                     }
                 }
+
+                connection.Close();
+                return stringBuilder.ToString();
             }
         }
     }
