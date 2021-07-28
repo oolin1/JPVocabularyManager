@@ -16,11 +16,11 @@ namespace ScriptParsers {
             start.UseShellExecute = false;
             start.RedirectStandardOutput = true;
 
-            using (Process process = Process.Start(start)) {
-                using (StreamReader reader = process.StandardOutput) {
-                    return reader.ReadToEnd();
-                }
+            using (Process process = Process.Start(start)) 
+            using (StreamReader reader = process.StandardOutput) {
+                return reader.ReadToEnd();
             }
+            
         }
     }
 }

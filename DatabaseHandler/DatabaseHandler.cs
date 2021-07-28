@@ -1,27 +1,58 @@
 ﻿using DatabaseHandler.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace DatabaseHandler {
     public class DatabaseHandler {
+        private string connectionString = @"Filename=..\..\..\..\DatabaseHandler\Database\VocabularyDatabase.db";
+        DbContextOptions<DatabaseContext> options;
         public DatabaseHandler() {
-            string connectionString = @"Filename=..\..\..\..\DatabaseHandler\Database\VocabularyDatabase.db";
-            DbContextOptions<DatabaseContext> options = new DbContextOptionsBuilder<DatabaseContext>().UseSqlite(connectionString).Options;
+            options = new DbContextOptionsBuilder<DatabaseContext>().UseSqlite(connectionString).Options;
+            using (DatabaseContext dataBase = new DatabaseContext(options)) {
+                dataBase.Database.EnsureCreated();
+            }
+        }
 
+        public Kanji GetKanjiBySymbol(string symbol) {
+            using DatabaseContext dataBase = new DatabaseContext(options); 
+            try {
+                return dataBase.Kanjis.Include(m => m.Meanings)
+                                      .Include(m => m.KunReadings)
+                                      .Include(m => m.OnReadings)
+                                      .Where(kanji => kanji.Symbol == symbol).First();
+            }
+            catch {
+                return null;
+            }
+        }
+
+        public bool AddOrUpdateKanji(Kanji kanji) {
             using DatabaseContext dataBase = new DatabaseContext(options);
-            dataBase.Database.EnsureCreated();
+            try {
+                if (dataBase.Kanjis.Contains(kanji)) {
+                    if (!RemoveKanji(kanji)) {
+                        return false;
+                    }
+                }
+                dataBase.Kanjis.Add(kanji);
+                dataBase.SaveChanges();
+                return true;
+            }
+            catch {
+                return false;
+            }
+        }
 
-            Kanji kanji = new Kanji {
-                HeisingID = 1,
-                HeisingMeaning = "one",
-                Symbol = "一",
-                Meanings = new List<Meaning>() { new Meaning() { Word = "one" }, new Meaning() { Word = "one radical(no.1)" } },
-                KunReadings = new List<KunReading>() { new KunReading() { Reading = "ひと-" }, new KunReading() { Reading = "ひと.つ" } },
-                OnReadings = new List<OnReading>() { new OnReading() { Reading = "イチ" }, new OnReading() { Reading = "イツ" } }
-            };
-
-            dataBase.Kanjis.Add(kanji);
-            dataBase.SaveChanges();
+        public bool RemoveKanji(Kanji kanji) {
+            using DatabaseContext dataBase = new DatabaseContext(options);
+            try {
+                dataBase.Remove(kanji);
+                dataBase.SaveChanges();
+                return true;
+            }
+            catch {
+                return false;
+            }
         }
     }
 }
