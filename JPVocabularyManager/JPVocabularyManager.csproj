@@ -6,6 +6,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DatabaseHandler\DatabaseHandler.csproj" />
     <ProjectReference Include="..\KanjiSheetHandler\KanjiSheetHandler.csproj" />
-    <ProjectReference Include="..\ScriptParser\ScriptParser.csproj" />
+    <ProjectReference Include="..\ScriptExecutor\ScriptExecutor.csproj" />
+    <ProjectReference Include="..\WebScraper\WebScraper.csproj" />
   </ItemGroup>
 </Project>
