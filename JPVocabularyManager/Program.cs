@@ -18,9 +18,13 @@ namespace JPVocabularyManager {
             List<string> kanjis = kanjiSheetReader.ReadKanjisFromRange("A1", "T32"/*"T608"*/);
             
             JishoScraper jishoScraper = new JishoScraper();
+            KoohiiScraper koohiiScraper = new KoohiiScraper();
+
             List<JishoData> jishoData = new List<JishoData>();
+            List<KoohiiData> koohiiData = new List<KoohiiData>();
             foreach (string kanji in kanjis) {
-                jishoData.Add(jishoScraper.ScrapeJishoData(kanji));
+                jishoData.Add(jishoScraper.ScrapeData(kanji));
+                koohiiData.Add(koohiiScraper.ScrapeData(kanji));
             }
         }
     }

@@ -7,11 +7,11 @@ using WebScraper.Data;
 
 namespace WebScraper.WebScrapers {
     public class JishoScraper {
-        public JishoData ScrapeJishoData(string kanji) {
-            PythonScriptExecutor scriptParser = new PythonScriptExecutor(Constants.JishoScriptPath);
-            string args = HttpUtility.UrlEncode(kanji);
+        public JishoData ScrapeData(string kanji) {
+            PythonScriptExecutor scriptExecutor = new PythonScriptExecutor(Constants.JishoScriptPath);
+            string arg = HttpUtility.UrlEncode(kanji);
 
-            return ParseScriptOutput(scriptParser.ExecuteScript(args));
+            return ParseScriptOutput(scriptExecutor.ExecuteScript(arg));
         }
 
         private JishoData ParseScriptOutput(string scriptOutput) {

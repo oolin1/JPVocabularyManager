@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO;
+using System.Text;
 
 namespace ScriptExecutor.Executors {
     public class PythonScriptExecutor : IScriptExecutor {
@@ -9,10 +10,10 @@ namespace ScriptExecutor.Executors {
             this.scriptPath = scriptPath;
         }
 
-        public string ExecuteScript(string args) {
+        public string ExecuteScript(params string[] args) {
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.FileName = Constants.PythonExePath;
-            startInfo.Arguments = $"{scriptPath} {args}";
+            startInfo.Arguments = $"{scriptPath} {ArgumentBuilder(args)}";
             startInfo.UseShellExecute = false;
             startInfo.RedirectStandardOutput = true;
 
@@ -20,6 +21,15 @@ namespace ScriptExecutor.Executors {
             using (StreamReader reader = process.StandardOutput) {
                 return reader.ReadToEnd();
             }
+        }
+
+        private string ArgumentBuilder(string[] args) {
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (string arg in args) {
+                stringBuilder.Append(arg).Append(" ");
+            }
+
+            return stringBuilder.ToString();
         }
     }
 }
