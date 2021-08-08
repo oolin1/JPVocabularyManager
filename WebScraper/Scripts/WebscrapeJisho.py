@@ -14,8 +14,8 @@ page_html = uClient.read()
 uClient.close()
 page_soup = soup(page_html, 'html.parser')
 
-elements = page_soup.findAll("div", { "class": "kanji-details__main-meanings" })
-meanings = elements[0].text.replace("\n", "").lstrip(" ").rstrip(" ")
+element = page_soup.find("div", { "class": "kanji-details__main-meanings" })
+meanings = element.text.replace("\n", "").lstrip(" ").rstrip(" ")
 print(meanings)
 
 readings = page_soup.findAll("dd", { "class": "kanji-details__main-readings-list" })

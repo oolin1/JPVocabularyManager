@@ -26,7 +26,7 @@ namespace ScriptExecutor.Executors {
         private string ArgumentBuilder(string[] args) {
             StringBuilder stringBuilder = new StringBuilder();
             foreach (string arg in args) {
-                stringBuilder.Append(arg).Append(" ");
+                stringBuilder.Append($"{arg} ");
             }
 
             return stringBuilder.ToString();

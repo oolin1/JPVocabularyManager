@@ -19,12 +19,16 @@ namespace JPVocabularyManager {
             
             JishoScraper jishoScraper = new JishoScraper();
             KoohiiScraper koohiiScraper = new KoohiiScraper();
+            JitenonScraper jitenonScraper = new JitenonScraper();
 
             List<JishoData> jishoData = new List<JishoData>();
             List<KoohiiData> koohiiData = new List<KoohiiData>();
+            List<JitenonData> jitenonData = new List<JitenonData>();
+
             foreach (string kanji in kanjis) {
                 jishoData.Add(jishoScraper.ScrapeData(kanji));
                 koohiiData.Add(koohiiScraper.ScrapeData(kanji));
+                jitenonData.Add(jitenonScraper.ScrapeData(kanji));
             }
         }
     }
