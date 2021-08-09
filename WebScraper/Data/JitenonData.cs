@@ -2,10 +2,10 @@
 
 namespace WebScraper.Data {
     public class JitenonData {
-        public List<string> Radicals { get; private set; }
+        public List<string> Parts { get; private set; }
 
-        public JitenonData(List<string> radicals) {
-            Radicals = radicals;
+        public JitenonData(List<string> parts) {
+            Parts = parts;
         }
     }
 }

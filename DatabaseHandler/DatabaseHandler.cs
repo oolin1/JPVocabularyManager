@@ -19,6 +19,7 @@ namespace DatabaseHandler {
                 return dataBase.Kanjis.Include(m => m.Meanings)
                                       .Include(m => m.KunReadings)
                                       .Include(m => m.OnReadings)
+                                      .Include(m => m.Parts)
                                       .Where(kanji => kanji.Symbol == symbol).First();
             }
             catch {
@@ -26,14 +27,9 @@ namespace DatabaseHandler {
             }
         }
 
-        public bool AddOrUpdateKanji(Kanji kanji) {
+        public bool AddKanji(Kanji kanji) {
             using DatabaseContext dataBase = new DatabaseContext(options);
             try {
-                if (dataBase.Kanjis.Contains(kanji)) {
-                    if (!RemoveKanji(kanji)) {
-                        return false;
-                    }
-                }
                 dataBase.Kanjis.Add(kanji);
                 dataBase.SaveChanges();
                 return true;
