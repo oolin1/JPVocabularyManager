@@ -6,6 +6,19 @@ from urllib.parse import quote as urlEncode
 from urllib.request import urlopen as uReq
 from bs4 import BeautifulSoup as soup
 
+def printReading(kanjiSection, readingClass):
+    element = kanjiSection.find("dl", { "class": readingClass })
+    readings = ""
+    if element is None:
+        print(readings)
+    else:
+        anchors = element.findAll("a")
+        for anchor in anchors:
+            readings = "{readings}{newReading}、".format(readings = readings, newReading = anchor.text)
+
+        print(urlEncode(readings).rstrip("、"))
+
+
 kanji = str(sys.argv[1])
 jishoUrl = "https://jisho.org/search/{kanji}%20%23kanji".format(kanji = kanji)
 
@@ -19,25 +32,5 @@ meanings = element.text.replace("\n", "").lstrip(" ").rstrip(" ")
 print(meanings)
 
 kanjiSection = pageSoup.find("div", { "class": "row kanji-details--section" })
-
-kunElement = kanjiSection.find("dl", { "class": "dictionary_entry kun_yomi" })
-kunReadings = ""
-if kunElement is None:
-    print(kunReadings)
-else:
-    kunAnchors = kunElement.findAll("a")
-    for anchor in kunAnchors:
-        kunReadings = "{readings}{newReading}、".format(readings = kunReadings, newReading = anchor.text)
-
-    print(urlEncode(kunReadings.rstrip("、")))
-
-onElement = kanjiSection.find("dl", { "class": "dictionary_entry on_yomi" })
-onReadings = ""
-if onElement is None:
-    print(onReadings)
-else:
-    onAnchors = onElement.findAll("a")
-    for anchor in onAnchors:
-        onReadings = "{readings}{newReading}、".format(readings = onReadings, newReading = anchor.text)
-
-    print(urlEncode(anchor.text).rstrip("、"))
+printReading(kanjiSection, "dictionary_entry kun_yomi")
+printReading(kanjiSection, "dictionary_entry on_yomi")

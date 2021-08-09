@@ -14,6 +14,10 @@ namespace WebScraper.WebScrapers {
         }
 
         protected override object BuildResult(List<string> parsedRows) {
+            if (parsedRows.Count == 0) {
+                return null;
+            }
+
             string heisingMeaning = parsedRows[0];
             int heisingId = int.Parse(parsedRows[1]);
 

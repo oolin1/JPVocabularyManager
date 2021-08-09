@@ -1,4 +1,6 @@
-﻿using KanjiSheetHandler;
+﻿using DatabaseHandler.Data;
+using KanjiSheetHandler;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using DbHandler = DatabaseHandler.DatabaseHandler;
@@ -12,10 +14,14 @@ namespace JPVocabularyManager {
             string sheetName = "Kanji";
 
             KanjiSheetReader kanjiSheetReader = new KanjiSheetReader(filePath, sheetName);
-            List<string> kanjis = kanjiSheetReader.ReadKanjisFromRange("F1", "F30"/*"T608"*/);
-            
+            List<string> kanjis = kanjiSheetReader.ReadKanjisFromRange("A1", "K31"/*"T608"*/);
+
             foreach (string kanji in kanjis) {
-                dbHandler.AddKanji(KanjiBuilder.BuildKanji(kanji));
+                Kanji result = KanjiBuilder.BuildKanji(kanji);
+                if (result != null) {
+                    Console.WriteLine("adding kanji " + result.HeisingID + ", " + result.HeisingMeaning);
+                    dbHandler.AddKanji(result);
+                }
             }
         }
     }

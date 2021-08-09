@@ -23,6 +23,10 @@ namespace JPVocabularyManager {
         }
 
         private static Kanji BuildKanjiFromWebScrapedData(string kanji, JishoData jishoData, KoohiiData koohiiData, JitenonData jitenonData) {
+            if (jishoData == null || koohiiData == null) {
+                return null;
+            }
+
             ICollection<Meaning> meanings = new List<Meaning>();
             ICollection<KunReading> kunReadings = new List<KunReading>();
             ICollection<OnReading> onReadings = new List<OnReading>();

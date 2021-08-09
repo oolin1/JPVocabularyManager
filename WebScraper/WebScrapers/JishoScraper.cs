@@ -9,6 +9,10 @@ namespace WebScraper.WebScrapers {
         }
 
         protected override object BuildResult(List<string> parsedRows) {
+            if (parsedRows.Count == 0 || string.IsNullOrEmpty(parsedRows[0])) {
+                return null;
+            }
+
             List<string> meanings = parsedRows[0].Split(", ").ToList();
             List<string> kunReadings = parsedRows[1].Split("、").ToList();
             List<string> onReadings = parsedRows[2].Split("、").ToList();
