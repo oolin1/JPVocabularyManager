@@ -23,15 +23,15 @@ namespace JPVocabularyManager {
         }
 
         private static Kanji BuildKanjiFromWebScrapedData(string kanji, JishoData jishoData, KoohiiData koohiiData, JitenonData jitenonData) {
-            ICollection<Word> meanings = new List<Word>();
-            ICollection<Word> kunReadings = new List<Word>();
-            ICollection<Word> onReadings = new List<Word>();
-            ICollection<Word> parts = new List<Word>();
+            ICollection<Meaning> meanings = new List<Meaning>();
+            ICollection<KunReading> kunReadings = new List<KunReading>();
+            ICollection<OnReading> onReadings = new List<OnReading>();
+            ICollection<KanjiPart> parts = new List<KanjiPart>();
 
-            jishoData.Meanings.ForEach(meaning => meanings.Add(new Word() { Text = meaning }));
-            jishoData.OnReadings.ForEach(onReading => kunReadings.Add(new Word() { Text = onReading }));
-            jishoData.KunReadings.ForEach(kunReading => onReadings.Add(new Word() { Text = kunReading }));
-            jitenonData.Parts.ForEach(part => parts.Add(new Word() { Text = part }));
+            jishoData.Meanings.ForEach(meaning => meanings.Add(new Meaning() { Word = meaning }));
+            jishoData.KunReadings.ForEach(kunReading => kunReadings.Add(new KunReading() { Reading = kunReading }));
+            jishoData.OnReadings.ForEach(onReading => onReadings.Add(new OnReading() { Reading = onReading }));
+            jitenonData.Parts.ForEach(part => parts.Add(new KanjiPart() { Part = part }));
 
             return new Kanji() {
                 Symbol = kanji,
@@ -41,7 +41,7 @@ namespace JPVocabularyManager {
                 KunReadings = kunReadings,
                 OnReadings = onReadings,
                 Parts = parts
-            }; ;
+            };
         }
     }
 }

@@ -2,10 +2,10 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DatabaseHandler.Data {
-    public class Word {
+    public class OnReading {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string ID { get; set; }
+        public int ID { get; set; }
         [Required]
-        public string Text { get; set; }
+        public string Reading { get; set; }
     }
 }
