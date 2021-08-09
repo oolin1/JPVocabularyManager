@@ -1,16 +1,17 @@
 ﻿using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ScriptExecutor.Executors {
-    public class PythonScriptExecutor : IScriptExecutor {
+    public class PythonScriptExecutor {
         private readonly string scriptPath;
         
         public PythonScriptExecutor(string scriptPath) {
             this.scriptPath = scriptPath;
         }
 
-        public string ExecuteScript(params string[] args) {
+        public async Task<string> ExecuteScript(params string[] args) {
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.FileName = Constants.PythonExePath;
             startInfo.Arguments = $"{scriptPath} {ArgumentBuilder(args)}";
@@ -19,7 +20,7 @@ namespace ScriptExecutor.Executors {
 
             using (Process process = Process.Start(startInfo)) 
             using (StreamReader reader = process.StandardOutput) {
-                return reader.ReadToEnd();
+                return await reader.ReadToEndAsync();
             }
         }
 

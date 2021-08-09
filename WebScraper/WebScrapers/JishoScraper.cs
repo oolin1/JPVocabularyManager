@@ -1,28 +1,17 @@
-﻿using ScriptExecutor.Executors;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
-using System.Web;
 using WebScraper.Data;
 
 namespace WebScraper.WebScrapers {
-    public class JishoScraper {
-        public JishoData ScrapeData(string kanji) {
-            PythonScriptExecutor scriptExecutor = new PythonScriptExecutor(Constants.JishoScriptPath);
-            string arg = HttpUtility.UrlEncode(kanji);
-
-            return ParseScriptOutput(scriptExecutor.ExecuteScript(arg));
+    public class JishoScraper : AbstractScraper {
+        public JishoScraper() {
+            scriptPath = Constants.JishoScriptPath;
         }
 
-        private JishoData ParseScriptOutput(string scriptOutput) {
-            List<string> rows = scriptOutput.Split("\n").Where(x => x != "").ToList();
-            for (int i = 0; i < rows.Count(); i++) {
-                rows[i] = new Regex("[\n\r]").Replace(HttpUtility.UrlDecode(rows[i]), "");
-            }
-
-            List<string> meanings = rows[0].Split(", ").ToList();
-            List<string> kunReadings = rows[1].Split("、 ").ToList();
-            List<string> onReadings = rows[2].Split("、 ").ToList();
+        protected override object BuildResult(List<string> parsedRows) {
+            List<string> meanings = parsedRows[0].Split(", ").ToList();
+            List<string> kunReadings = parsedRows[1].Split("、 ").ToList();
+            List<string> onReadings = parsedRows[2].Split("、 ").ToList();
 
             return new JishoData(meanings, kunReadings, onReadings);
         }

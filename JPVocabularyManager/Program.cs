@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using KanjiSheetHandler;
+using System.Collections.Generic;
 using System.IO;
-
-using KanjiSheetHandler;
+using System.Threading.Tasks;
 using WebScraper.Data;
 using WebScraper.WebScrapers;
 using DbHandler = DatabaseHandler.DatabaseHandler;
@@ -16,19 +16,27 @@ namespace JPVocabularyManager {
 
             KanjiSheetReader kanjiSheetReader = new KanjiSheetReader(filePath, sheetName);
             List<string> kanjis = kanjiSheetReader.ReadKanjisFromRange("A1", "T32"/*"T608"*/);
-            
-            JishoScraper jishoScraper = new JishoScraper();
-            KoohiiScraper koohiiScraper = new KoohiiScraper();
-            JitenonScraper jitenonScraper = new JitenonScraper();
 
-            List<JishoData> jishoData = new List<JishoData>();
-            List<KoohiiData> koohiiData = new List<KoohiiData>();
-            List<JitenonData> jitenonData = new List<JitenonData>();
-
+            TaskRunner runner = new TaskRunner();
             foreach (string kanji in kanjis) {
-                jishoData.Add(jishoScraper.ScrapeData(kanji));
-                koohiiData.Add(koohiiScraper.ScrapeData(kanji));
-                jitenonData.Add(jitenonScraper.ScrapeData(kanji));
+                Task kanjiTask = runner.TasksAsync(kanji);
+                kanjiTask.Wait();
+            }
+        }
+
+        private class TaskRunner {
+            public async Task TasksAsync(string kanji) {
+                Task<object> jishoTask = new JishoScraper().ScrapeData(kanji);
+                Task<object> koohiiTask = new KoohiiScraper().ScrapeData(kanji);
+                Task<object> jitenonTask = new JitenonScraper().ScrapeData(kanji);
+
+                await Task.WhenAll(jishoTask, koohiiTask, jitenonTask);
+
+                JishoData jishoData = jishoTask.Result as JishoData;
+                KoohiiData koohiiData = koohiiTask.Result as KoohiiData;
+                JitenonData jitenonData = jitenonTask.Result as JitenonData;
+
+                return;
             }
         }
     }
