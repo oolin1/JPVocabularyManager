@@ -7,14 +7,14 @@ from urllib.request import urlopen as uReq
 from bs4 import BeautifulSoup as soup
 
 kanji = str(sys.argv[1])
-jitenon_url = 'https://jitenon.com/kanji/{kanji}'.format(kanji = kanji)
+jitenonUrl = 'https://jitenon.com/kanji/{kanji}'.format(kanji = kanji)
 
-uClient = uReq(jitenon_url)
-page_html = uClient.read()
+uClient = uReq(jitenonUrl)
+pageHtml = uClient.read()
 uClient.close()
-page_soup = soup(page_html, 'html.parser')
+pageSoup = soup(pageHtml, 'html.parser')
 
-elements = page_soup.find("ul", { "class": "kanji_data" })
+elements = pageSoup.find("ul", { "class": "kanji_data" })
 anchors = elements.findAll("a")
 
 regex = "//jitenon.com/parts/(.*)"
