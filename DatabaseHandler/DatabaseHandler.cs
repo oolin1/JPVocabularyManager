@@ -27,9 +27,16 @@ namespace DatabaseHandler {
             }
         }
 
-        public bool AddKanji(Kanji kanji) {
+        public bool AddOrReplaceKanji(Kanji kanji) {
             using DatabaseContext dataBase = new DatabaseContext(options);
             try {
+                Kanji foundKanji = GetKanjiBySymbol(kanji.Symbol);
+                if (foundKanji != null) {
+                    if (!RemoveKanji(foundKanji)) {
+                        return false;
+                    }
+                }
+
                 dataBase.Kanjis.Add(kanji);
                 dataBase.SaveChanges();
                 return true;

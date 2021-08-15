@@ -20,7 +20,7 @@ namespace JPVocabularyManager {
                 Kanji result = KanjiBuilder.BuildKanji(kanji);
                 if (result != null) {
                     Console.WriteLine("adding kanji " + result.HeisingID + ", " + result.HeisingMeaning);
-                    dbHandler.AddKanji(result);
+                    dbHandler.AddOrReplaceKanji(result);
                 }
             }
         }
