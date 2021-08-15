@@ -12,9 +12,9 @@ namespace JPVocabularyManager {
             string sheetName = "Kanji";
 
             KanjiSheetReader kanjiSheetReader = new KanjiSheetReader(filePath, sheetName);
-            List<string> kanjis = kanjiSheetReader.ReadKanjisFromRange("P1", "P30"/*"T608"*/);
+            List<string> kanjis = kanjiSheetReader.ReadKanjisFromRange("A1", "T608");
 
-            using DbHandler dbHandler = new DbHandler(); 
+            using DbHandler dbHandler = new DbHandler();
             foreach (string kanji in kanjis) {
                 Kanji result = KanjiBuilder.BuildKanji(kanji);
                 if (result != null) {
