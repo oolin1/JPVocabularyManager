@@ -5,12 +5,12 @@ using Marshal = System.Runtime.InteropServices.Marshal;
 
 namespace ExcelParser {
     public class ExcelReader : IDisposable {
-        private readonly Excel.Application xlApp;
-        private readonly Excel.Workbooks xlWorkbooks;
-        private readonly Excel.Workbook xlWorkbook;
-        private readonly Excel.Sheets xlWorksheets;
-        private readonly Excel._Worksheet xlWorksheet;
-        private readonly List<Excel.Range> xlRanges;
+        private Excel.Application xlApp;
+        private Excel.Workbooks xlWorkbooks;
+        private Excel.Workbook xlWorkbook;
+        private Excel.Sheets xlWorksheets;
+        private Excel._Worksheet xlWorksheet;
+        private List<Excel.Range> xlRanges;
 
         private readonly string filePath;
         private readonly string sheetName;
@@ -70,7 +70,20 @@ namespace ExcelParser {
             xlApp.Quit();
             Marshal.ReleaseComObject(xlApp);
 
+            if (disposing) {
+                xlApp = null;
+                xlWorkbooks = null;
+                xlWorkbook = null;
+                xlWorksheets = null;
+                xlWorksheet = null;
+                xlRanges = null;
+            }
+
             isDisposed = true;
+        }
+
+        ~ExcelReader() {
+            Dispose(false);
         }
     }
 }

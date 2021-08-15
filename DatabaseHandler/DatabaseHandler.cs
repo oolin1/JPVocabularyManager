@@ -1,20 +1,21 @@
 ﻿using DatabaseHandler.Data;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 
 namespace DatabaseHandler {
-    public class DatabaseHandler {
-        private string connectionString = @"Filename=..\..\..\..\DatabaseHandler\Database\VocabularyDatabase.db";
-        DbContextOptions<DatabaseContext> options;
+    public class DatabaseHandler : IDisposable {
+        private const string connectionString = @"Filename=..\..\..\..\DatabaseHandler\Database\VocabularyDatabase.db";
+        private DbContextOptions<DatabaseContext> options;
+        private DatabaseContext dataBase;
+
         public DatabaseHandler() {
             options = new DbContextOptionsBuilder<DatabaseContext>().UseSqlite(connectionString).Options;
-            using (DatabaseContext dataBase = new DatabaseContext(options)) {
-                dataBase.Database.EnsureCreated();
-            }
+            dataBase = new DatabaseContext(options);
+            dataBase.Database.EnsureCreated();
         }
 
         public Kanji GetKanjiBySymbol(string symbol) {
-            using DatabaseContext dataBase = new DatabaseContext(options); 
             try {
                 return dataBase.Kanjis.Include(m => m.Meanings)
                                       .Include(m => m.KunReadings)
@@ -28,7 +29,6 @@ namespace DatabaseHandler {
         }
 
         public bool AddOrReplaceKanji(Kanji kanji) {
-            using DatabaseContext dataBase = new DatabaseContext(options);
             try {
                 Kanji foundKanji = GetKanjiBySymbol(kanji.Symbol);
                 if (foundKanji != null) {
@@ -47,7 +47,6 @@ namespace DatabaseHandler {
         }
 
         public bool RemoveKanji(Kanji kanji) {
-            using DatabaseContext dataBase = new DatabaseContext(options);
             try {
                 dataBase.Remove(kanji);
                 dataBase.SaveChanges();
@@ -56,6 +55,12 @@ namespace DatabaseHandler {
             catch {
                 return false;
             }
+        }
+
+        public virtual void Dispose() {
+            dataBase.Dispose();
+            dataBase = null;
+            options = null;
         }
     }
 }
