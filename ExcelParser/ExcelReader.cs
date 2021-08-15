@@ -32,6 +32,10 @@ namespace ExcelParser {
         }
 
         public List<string> GetRangeValues(string from, string to) {
+            if (from == to) {
+                return GetCellValue(from);
+            }
+
             List<string> result = new List<string>();
             Excel.Range xlRange = xlWorksheet.get_Range(from, to);
             xlRanges.Add(xlRange);
@@ -47,6 +51,13 @@ namespace ExcelParser {
             }
 
             return result;
+        }
+
+        private List<string> GetCellValue(string cell) {
+            Excel.Range xlRange = xlWorksheet.get_Range(cell);
+            xlRanges.Add(xlRange);
+            
+            return xlRange.Value != null ? new List<string>() { xlRange.Value.ToString() }  : new List<string>();
         }
 
         public void Dispose() {
