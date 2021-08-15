@@ -15,7 +15,7 @@ namespace DatabaseHandler {
             dataBase.Database.EnsureCreated();
         }
 
-        public Kanji GetKanjiBySymbol(string symbol) {
+        public Kanji GetKanji(string symbol) {
             try {
                 return dataBase.Kanjis.Include(m => m.Meanings)
                                       .Include(m => m.KunReadings)
@@ -30,13 +30,10 @@ namespace DatabaseHandler {
 
         public bool AddOrReplaceKanji(Kanji kanji) {
             try {
-                Kanji foundKanji = GetKanjiBySymbol(kanji.Symbol);
-                if (foundKanji != null) {
-                    if (!RemoveKanji(foundKanji)) {
-                        return false;
-                    }
+                if (!RemoveKanji(kanji.Symbol)) {
+                    return false;
                 }
-
+                
                 dataBase.Kanjis.Add(kanji);
                 dataBase.SaveChanges();
                 return true;
@@ -46,10 +43,13 @@ namespace DatabaseHandler {
             }
         }
 
-        public bool RemoveKanji(Kanji kanji) {
+        public bool RemoveKanji(string kanji) {
             try {
-                dataBase.Remove(kanji);
-                dataBase.SaveChanges();
+                Kanji foundKanji = GetKanji(kanji);
+                if (foundKanji != null) {
+                    dataBase.Remove(foundKanji);
+                    dataBase.SaveChanges();
+                }
                 return true;
             }
             catch {
