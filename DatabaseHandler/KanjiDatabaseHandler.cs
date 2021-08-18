@@ -4,23 +4,23 @@ using System;
 using System.Linq;
 
 namespace DatabaseHandler {
-    public class DatabaseHandler : IDisposable {
-        private const string connectionString = @"Filename=..\..\..\..\DatabaseHandler\Database\KanjiDatabase.db";
-        private DbContextOptions<DatabaseContext> options;
-        private DatabaseContext dataBase;
+    public class KanjiDatabaseHandler : IDisposable {
+        private const string connectionString = @"Filename=..\..\..\..\DatabaseHandler\Databases\KanjiDatabase2.db";
+        private DbContextOptions<KanjiDatabaseContext> options;
+        private KanjiDatabaseContext dataBase;
 
-        public DatabaseHandler() {
-            options = new DbContextOptionsBuilder<DatabaseContext>().UseSqlite(connectionString).Options;
-            dataBase = new DatabaseContext(options);
+        public KanjiDatabaseHandler() {
+            options = new DbContextOptionsBuilder<KanjiDatabaseContext>().UseSqlite(connectionString).Options;
+            dataBase = new KanjiDatabaseContext(options);
             dataBase.Database.EnsureCreated();
         }
 
         public Kanji GetKanji(string symbol) {
             try {
-                return dataBase.Kanjis.Include(m => m.Meanings)
-                                      .Include(m => m.KunReadings)
-                                      .Include(m => m.OnReadings)
-                                      .Include(m => m.Parts)
+                return dataBase.Kanjis.Include(kanji => kanji.Meanings)
+                                      .Include(kanji => kanji.KunReadings)
+                                      .Include(kanji => kanji.OnReadings)
+                                      .Include(kanji => kanji.Parts)
                                       .Where(kanji => kanji.Symbol == symbol).First();
             }
             catch {
@@ -47,6 +47,10 @@ namespace DatabaseHandler {
             try {
                 Kanji foundKanji = GetKanji(kanji);
                 if (foundKanji != null) {
+                    dataBase.RemoveCollection(foundKanji.Meanings);
+                    dataBase.RemoveCollection(foundKanji.KunReadings);
+                    dataBase.RemoveCollection(foundKanji.OnReadings);
+                    dataBase.RemoveCollection(foundKanji.Parts);
                     dataBase.Remove(foundKanji);
                     dataBase.SaveChanges();
                 }

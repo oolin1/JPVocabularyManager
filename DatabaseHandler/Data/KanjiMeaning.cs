@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DatabaseHandler.Data {
-    public class Meaning {
+    public class KanjiMeaning {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         [Required(AllowEmptyStrings = false)]

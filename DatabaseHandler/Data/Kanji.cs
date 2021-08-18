@@ -8,9 +8,9 @@ namespace DatabaseHandler.Data {
         public int ID { get; set; }
         public int HeisingID { get; set; }
         public string HeisingMeaning { get; set; }
-        [Required]
+        [Required(AllowEmptyStrings = false)]
         public string Symbol { get; set; }
-        public ICollection<Meaning> Meanings { get; set; }
+        public ICollection<KanjiMeaning> Meanings { get; set; }
         public ICollection<KunReading> KunReadings { get; set; }
         public ICollection<OnReading> OnReadings { get; set; }
         public ICollection<KanjiPart> Parts { get; set; }
