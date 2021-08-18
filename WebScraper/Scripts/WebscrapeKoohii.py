@@ -19,19 +19,23 @@ credentials = { 'username': username, 'password': password }
 
 attemptGet = True
 while attemptGet:
-    session.post(koohiiLoginUrl, data = credentials)
-    s = session.get(koohiiKanjiUrl)
-    pageSoup = soup(s.text, 'html.parser')
+    try:
+        session.post(koohiiLoginUrl, data = credentials)
+        s = session.get(koohiiKanjiUrl)
+        pageSoup = soup(s.text, 'html.parser')
 
-    title = pageSoup.find("title")
-    if title.text == 'Oops, please retry in a short moment':
+        title = pageSoup.find("title")
+        if title.text == 'Oops, please retry in a short moment':
+            attemptGet = True
+            time.sleep(2)
+        elif title.text == 'Sign In - Kanji Koohii':
+            print('UNAUTHORIZED')
+            exit()
+        else:
+            attemptGet = False
+    except:
         attemptGet = True
-        time.sleep(2)
-    elif title.text == 'Sign In - Kanji Koohii':
-        print('UNAUTHORIZED')
-        exit()
-    else:
-        attemptGet = False
+        time.sleep(3)
 
 meaning = pageSoup.find("span", { "class": "JSEditKeyword" })
 heisingId = pageSoup.find("div", { "class": "framenum" })

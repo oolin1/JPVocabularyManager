@@ -13,11 +13,15 @@ namespace WebScraper.WebScrapers {
                 return null;
             }
 
-            List<string> meanings = parsedRows[0].Split(", ").ToList();
-            List<string> kunReadings = parsedRows[1].Split("、").ToList();
-            List<string> onReadings = parsedRows[2].Split("、").ToList();
+            List<string> meanings = BuildList(parsedRows[0], ", ");
+            List<string> kunReadings = BuildList(parsedRows[1], "、"); 
+            List<string> onReadings = BuildList(parsedRows[2], "、"); 
 
             return new JishoData(meanings, kunReadings, onReadings);
+        }
+
+        private List<string> BuildList(string parsedRow, string separator) {
+            return string.IsNullOrEmpty(parsedRow) ? null : parsedRow.Split(separator).ToList();
         }
     }
 }

@@ -5,7 +5,7 @@ namespace DatabaseHandler.Data {
     public class KanjiPart {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-        [Required]
+        [Required(AllowEmptyStrings = false)]
         public string Part { get; set; }
     }
 }

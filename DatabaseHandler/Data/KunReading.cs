@@ -5,7 +5,7 @@ namespace DatabaseHandler.Data {
     public class KunReading {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-        [Required]
+        [Required(AllowEmptyStrings = false)]
         public string Reading { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace DatabaseHandler {
     public class DatabaseHandler : IDisposable {
-        private const string connectionString = @"Filename=..\..\..\..\DatabaseHandler\Database\VocabularyDatabase.db";
+        private const string connectionString = @"Filename=..\..\..\..\DatabaseHandler\Database\KanjiDatabase.db";
         private DbContextOptions<DatabaseContext> options;
         private DatabaseContext dataBase;
 

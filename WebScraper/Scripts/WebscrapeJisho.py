@@ -2,8 +2,8 @@
 # pip install bs4 
 
 import sys
+import requests
 from urllib.parse import quote as urlEncode
-from urllib.request import urlopen as uReq
 from bs4 import BeautifulSoup as soup
 
 def printReading(kanjiSection, readingClass):
@@ -16,16 +16,16 @@ def printReading(kanjiSection, readingClass):
         for anchor in anchors:
             readings = "{readings}{newReading}、".format(readings = readings, newReading = anchor.text)
 
-        print(urlEncode(readings).rstrip("、"))
+        print(urlEncode(readings.rstrip("、")))
 
 
 kanji = str(sys.argv[1])
 jishoUrl = "https://jisho.org/search/{kanji}%20%23kanji".format(kanji = kanji)
 
-uClient = uReq(jishoUrl)
-pageHtml = uClient.read()
-uClient.close()
-pageSoup = soup(pageHtml, "html.parser")
+session = requests.Session()
+session.headers = { "User-Agent": "Chrome/42.0.2311.135" }
+s = session.get(jishoUrl)
+pageSoup = soup(s.text, 'html.parser')
 
 element = pageSoup.find("div", { "class": "kanji-details__main-meanings" })
 meanings = element.text.replace("\n", "").lstrip(" ").rstrip(" ")

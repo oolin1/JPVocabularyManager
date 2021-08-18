@@ -32,9 +32,9 @@ namespace JPVocabularyManager {
             ICollection<OnReading> onReadings = new List<OnReading>();
             ICollection<KanjiPart> parts = new List<KanjiPart>();
 
-            jishoData.Meanings.ForEach(meaning => meanings.Add(new Meaning() { Word = meaning }));
-            jishoData.KunReadings.ForEach(kunReading => kunReadings.Add(new KunReading() { Reading = kunReading }));
-            jishoData.OnReadings.ForEach(onReading => onReadings.Add(new OnReading() { Reading = onReading }));
+            jishoData.Meanings?.ForEach(meaning => meanings.Add(new Meaning() { Word = meaning }));
+            jishoData.KunReadings?.ForEach(kunReading => kunReadings.Add(new KunReading() { Reading = kunReading }));
+            jishoData.OnReadings?.ForEach(onReading => onReadings.Add(new OnReading() { Reading = onReading }));
             jitenonData.Parts.ForEach(part => parts.Add(new KanjiPart() { Part = part }));
 
             return new Kanji() {
