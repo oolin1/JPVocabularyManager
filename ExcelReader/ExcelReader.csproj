@@ -7,8 +7,8 @@
     <ProjectGuid>{EED3601F-6D7C-4D8C-9DDD-D541FE46AA98}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ExcelParser</RootNamespace>
-    <AssemblyName>ExcelParser</AssemblyName>
+    <RootNamespace>ExcelReader</RootNamespace>
+    <AssemblyName>ExcelReader</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -49,13 +49,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExcelCellNameConverter.cs" />
     <Compile Include="ExcelHelper.cs" />
     <Compile Include="ExcelReader.cs" />
+    <Compile Include="KanjiSheetParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Resources\Kanji Sheet Sample.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

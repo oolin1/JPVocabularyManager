@@ -5,13 +5,11 @@ VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JPVocabularyManager", "JPVocabularyManager.csproj", "{DF2B69B2-B9DB-4272-8384-8FFA7CFA7A01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelParser", "..\ExcelParser\ExcelParser.csproj", "{EED3601F-6D7C-4D8C-9DDD-D541FE46AA98}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KanjiSheetHandler", "..\KanjiSheetHandler\KanjiSheetHandler.csproj", "{06C1C4F0-8542-4A52-AFF7-5B17F199F6AC}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseHandler", "..\DatabaseHandler\DatabaseHandler.csproj", "{BDECC732-986C-49A4-9920-4A6D6A50E7C3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebScraper", "..\WebScraper\WebScraper.csproj", "{4BB2ACEA-4597-43B6-9EA9-5E7A439B3133}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelReader", "..\ExcelReader\ExcelReader.csproj", "{EED3601F-6D7C-4D8C-9DDD-D541FE46AA98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,14 +21,6 @@ Global
 		{DF2B69B2-B9DB-4272-8384-8FFA7CFA7A01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF2B69B2-B9DB-4272-8384-8FFA7CFA7A01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF2B69B2-B9DB-4272-8384-8FFA7CFA7A01}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EED3601F-6D7C-4D8C-9DDD-D541FE46AA98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EED3601F-6D7C-4D8C-9DDD-D541FE46AA98}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EED3601F-6D7C-4D8C-9DDD-D541FE46AA98}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EED3601F-6D7C-4D8C-9DDD-D541FE46AA98}.Release|Any CPU.Build.0 = Release|Any CPU
-		{06C1C4F0-8542-4A52-AFF7-5B17F199F6AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{06C1C4F0-8542-4A52-AFF7-5B17F199F6AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{06C1C4F0-8542-4A52-AFF7-5B17F199F6AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{06C1C4F0-8542-4A52-AFF7-5B17F199F6AC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BDECC732-986C-49A4-9920-4A6D6A50E7C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BDECC732-986C-49A4-9920-4A6D6A50E7C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDECC732-986C-49A4-9920-4A6D6A50E7C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +29,10 @@ Global
 		{4BB2ACEA-4597-43B6-9EA9-5E7A439B3133}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BB2ACEA-4597-43B6-9EA9-5E7A439B3133}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BB2ACEA-4597-43B6-9EA9-5E7A439B3133}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EED3601F-6D7C-4D8C-9DDD-D541FE46AA98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EED3601F-6D7C-4D8C-9DDD-D541FE46AA98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EED3601F-6D7C-4D8C-9DDD-D541FE46AA98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EED3601F-6D7C-4D8C-9DDD-D541FE46AA98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

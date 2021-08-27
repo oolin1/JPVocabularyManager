@@ -1,22 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using ExcelParser;
-using Converter = ExcelParser.ExcelCellNameConverter;
 
-namespace KanjiSheetHandler {
-    public class KanjiSheetReader {
+namespace ExcelReader {
+    public class KanjiSheetParser {
         private readonly string filePath;
         private readonly string sheetName;
 
-        public KanjiSheetReader(string filePath, string sheetName) {
+        public KanjiSheetParser(string filePath, string sheetName) {
             this.filePath = filePath;
             this.sheetName = sheetName;
         }
 
         public List<string> ReadKanjisFromRange(string from, string to, int kanjiColumnsDistance = 5) {
-            (int, int) fromCell = Converter.ExcelCellNameToIndices(from);
-            (int, int) toCell = Converter.ExcelCellNameToIndices(to);
+            (int, int) fromCell = ExcelHelper.ConvertCellNameToIndices(from);
+            (int, int) toCell = ExcelHelper.ConvertCellNameToIndices(to);
 
             List<string> columns = GetColumnsToRead(fromCell.Item1, toCell.Item1, kanjiColumnsDistance);
             List<string> kanjis = new List<string>();
@@ -32,16 +30,16 @@ namespace KanjiSheetHandler {
         private List<string> GetColumnsToRead(int firstColumn, int lastColumn, int kanjiColumnsDistance) {
             List<string> columns = new List<string>();
             for (int i = firstColumn; i <= lastColumn; i = i + kanjiColumnsDistance) {
-                columns.Add(Converter.ExcelColumnNumberToName(i));
+                columns.Add(ExcelHelper.ConvertColumnNumberToName(i));
             }
 
             return columns;
         }
 
         private IEnumerable<string> RemoveSpecialValues(List<string> list) {
-            for (int i = 0; i<list.Count; i++) {
+            for (int i = 0; i < list.Count; i++) {
                 if (list[i].Length > 1 && list[i].Contains(",")) {
-                    list[i] = list[i].Split(",")[0];
+                    list[i] = list[i].Split(',')[0];
                 }
             }
 

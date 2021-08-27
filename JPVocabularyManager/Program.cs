@@ -1,6 +1,6 @@
 ﻿using DatabaseHandler;
 using DatabaseHandler.Data;
-using KanjiSheetHandler;
+using ExcelReader;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,10 +11,10 @@ namespace JPVocabularyManager {
         static void Main(string[] args) {
             RunDbExample();
 
-            string filePath = Path.GetFullPath(@"..\..\..\..\KanjiSheetHandler\Resources\Kanji Sheet Sample.xlsx");
+            string filePath = Path.GetFullPath(@"..\..\..\..\ExcelReader\Resources\Kanji Sheet Sample.xlsx");
             string sheetName = "Kanji";
 
-            KanjiSheetReader kanjiSheetReader = new KanjiSheetReader(filePath, sheetName);
+            KanjiSheetParser kanjiSheetReader = new KanjiSheetParser(filePath, sheetName);
             List<string> kanjis = kanjiSheetReader.ReadKanjisFromRange("A1", "T608");
 
             string connectionString = @"Filename=C:\Project\JPVocabularyManager\DatabaseHandler\Databases\KanjiDatabase.db";

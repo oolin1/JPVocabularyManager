@@ -5,7 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\DatabaseHandler\DatabaseHandler.csproj" />
-    <ProjectReference Include="..\KanjiSheetHandler\KanjiSheetHandler.csproj" />
+    <ProjectReference Include="..\ExcelReader\ExcelReader.csproj" />
     <ProjectReference Include="..\WebScraper\WebScraper.csproj" />
   </ItemGroup>
 </Project>

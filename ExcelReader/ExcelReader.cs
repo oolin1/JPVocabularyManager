@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Excel = Microsoft.Office.Interop.Excel;
 using Marshal = System.Runtime.InteropServices.Marshal;
 
-namespace ExcelParser {
+namespace ExcelReader {
     public class ExcelReader : IDisposable {
         private Excel.Application xlApp;
         private Excel.Workbooks xlWorkbooks;
