@@ -1,9 +1,9 @@
-﻿using ScriptExecutor.Executors;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
+using WebScraper.Scripts;
 
 namespace WebScraper.WebScrapers {
     public abstract class AbstractScraper {

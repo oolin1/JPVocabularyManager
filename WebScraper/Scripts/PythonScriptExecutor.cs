@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScriptExecutor.Executors {
+namespace WebScraper.Scripts {
     public class PythonScriptExecutor {
         private readonly string scriptPath;
         
