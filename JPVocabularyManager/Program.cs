@@ -1,6 +1,7 @@
 ﻿using DatabaseHandler;
 using DatabaseHandler.Data;
 using DesktopClient;
+using DesktopClient.View;
 using ExcelReader;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,30 +12,30 @@ namespace JPVocabularyManager {
     public class Program {
         [STAThread]
         static void Main(string[] args) {
-            App app = new App();
+            DesktopClientApp app = new DesktopClientApp();
             app.MainWindow = new MainWindow();
-            app.MainWindow.Show();
+            app.MainWindow.ShowDialog();
 
-            RunDbExample();
+            //RunDbExample();
 
-            string filePath = Path.GetFullPath(@"..\..\..\..\ExcelReader\Resources\Kanji Sheet Sample.xlsx");
-            string sheetName = "Kanji";
+            //string filePath = Path.GetFullPath(@"..\..\..\..\ExcelReader\Resources\Kanji Sheet Sample.xlsx");
+            //string sheetName = "Kanji";
 
-            KanjiSheetParser kanjiSheetReader = new KanjiSheetParser(filePath, sheetName);
-            List<string> kanjis = kanjiSheetReader.ReadKanjisFromRange("A1", "T608");
+            //KanjiSheetParser kanjiSheetReader = new KanjiSheetParser(filePath, sheetName);
+            //List<string> kanjis = kanjiSheetReader.ReadKanjisFromRange("A1", "T608");
 
-            string connectionString = @"Filename=C:\Project\JPVocabularyManager\DatabaseHandler\Databases\KanjiDatabase.db";
-            DbContextOptions<KanjiDbContext> options = new DbContextOptionsBuilder<KanjiDbContext>().UseSqlite(connectionString).Options;
-            KanjiDbContext dataBase = new KanjiDbContext(options);
-            DatabaseHandler<KanjiDbContext> kanjiDatabaseHandler = new DatabaseHandler<KanjiDbContext>(dataBase);
+            //string connectionString = @"Filename=C:\Project\JPVocabularyManager\DatabaseHandler\Databases\KanjiDatabase.db";
+            //DbContextOptions<KanjiDbContext> options = new DbContextOptionsBuilder<KanjiDbContext>().UseSqlite(connectionString).Options;
+            //KanjiDbContext dataBase = new KanjiDbContext(options);
+            //DatabaseHandler<KanjiDbContext> kanjiDatabaseHandler = new DatabaseHandler<KanjiDbContext>(dataBase);
 
-            foreach (string kanji in kanjis) {
-                Kanji result = KanjiBuilder.BuildKanji(kanji);
-                if (result != null) {
-                    Console.WriteLine("adding kanji " + result.HeisingID + ", " + result.HeisingMeaning);
-                    kanjiDatabaseHandler.AddOrUpdateEntity(result);
-                }
-            }
+            //foreach (string kanji in kanjis) {
+            //    Kanji result = KanjiBuilder.BuildKanji(kanji);
+            //    if (result != null) {
+            //        Console.WriteLine("adding kanji " + result.HeisingID + ", " + result.HeisingMeaning);
+            //        kanjiDatabaseHandler.AddOrUpdateEntity(result);
+            //    }
+            //}
         }
 
         static private void RunDbExample() {

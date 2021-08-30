@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace DesktopClient {
+namespace DesktopClient.View {
     public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
