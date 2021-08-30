@@ -14,7 +14,7 @@ namespace ExcelReader {
 
         private readonly string filePath;
         private readonly string sheetName;
-        
+
         private bool isDisposed;
 
         public ExcelReader(string filePath, string sheetName) {
@@ -56,7 +56,7 @@ namespace ExcelReader {
         private List<string> GetCellValue(string cell) {
             Excel.Range xlRange = xlWorksheet.get_Range(cell);
             xlRanges.Add(xlRange);
-            
+
             return xlRange.Value != null ? new List<string>() { xlRange.Value.ToString() }  : new List<string>();
         }
 

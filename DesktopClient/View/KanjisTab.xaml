@@ -39,7 +39,7 @@
             <Grid Grid.Column="1">
                 <DockPanel>
                     <TextBox DockPanel.Dock="Top" Height="22" MinWidth="38" VerticalContentAlignment="Center" Padding="2,0,2,0">20101</TextBox>
-                    <TextBox DockPanel.Dock="Bottom" Padding="2,0,2,0" VerticalContentAlignment="Center">豆</TextBox>
+                    <TextBox DockPanel.Dock="Bottom" VerticalContentAlignment="Center" Padding="2,0,2,0">豆</TextBox>
                 </DockPanel>
             </Grid>
 
@@ -50,7 +50,7 @@
                 </DockPanel>
             </Grid>
 
-            <Button Grid.Column="3" Margin="10,0,0,0">Delete</Button>
+            <Button Grid.Column="3" Padding="10,2,10,2" Margin="10,0,0,0">Delete</Button>
         </Grid>
 
         <Grid Grid.Row="2">
@@ -65,6 +65,6 @@
             <TextBlock Grid.Column="2" Background="DarkGray" Padding="5" Margin="10,0,0,10" Text="On"/>
         </Grid>
 
-        <Button Grid.Row="3" HorizontalAlignment="Right">Add / Update</Button>
+        <Button Grid.Row="3" HorizontalAlignment="Right" Padding="10,2,10,2">Add / Update</Button>
     </Grid>
 </UserControl>

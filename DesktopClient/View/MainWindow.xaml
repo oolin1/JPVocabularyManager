@@ -41,7 +41,10 @@
                 </TabItem.Header>
             </TabItem>
         </TabControl>
-        
-        <Label Grid.Row="1">Log view comes here</Label>
+
+        <StackPanel Grid.Row="1" Orientation="Vertical">
+            <Button Height="14" Width="60" Padding="0,-3,0,0" Margin="0,1,0,1">▼</Button>
+            <TextBox Background="LightGray" Height="100" Padding="5">Log view comes here ▲</TextBox> 
+        </StackPanel>
     </Grid>
 </Window>
