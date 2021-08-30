@@ -29,6 +29,8 @@
                         <TextBlock Text="Kanjis"/>
                     </StackPanel>
                 </TabItem.Header>
+
+                <local:KanjisTab/>
             </TabItem>
 
             <TabItem>
