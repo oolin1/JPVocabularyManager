@@ -20,30 +20,7 @@
                     </StackPanel>
                 </TabItem.Header>
                 
-                <Grid Margin="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-
-                    <DockPanel Grid.Row="0" Margin="0,0,0,10">
-                        <ComboBox VerticalAlignment="Center">
-                            <ComboBoxItem IsSelected="True">Lesson 1</ComboBoxItem>
-                            <ComboBoxItem>Lesson 2</ComboBoxItem>
-                            <ComboBoxItem>Lesson 3</ComboBoxItem>
-                        </ComboBox> 
-
-                        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                            <Button Padding="10,2,10,2" Margin="0,0,10,0">Add</Button>
-                            <Button Padding="10,2,10,2">Delete</Button>
-                        </StackPanel>
-                    </DockPanel>
-
-                    <TextBlock Grid.Row="1" Background="LightGray" Padding="5" Margin="0,0,0,10" Text="Lesson data grid comes here"/>
-
-                    <Button Grid.Row="2" HorizontalAlignment="Right" Padding="10,2,10,2">Save</Button>
-                </Grid>
+                <local:LessonsTab/>
             </TabItem>
             
             <TabItem>
