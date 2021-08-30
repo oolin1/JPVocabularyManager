@@ -1,5 +1,6 @@
 ﻿using DatabaseHandler;
 using DatabaseHandler.Data;
+using DesktopClient;
 using ExcelReader;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -8,7 +9,12 @@ using System.IO;
 
 namespace JPVocabularyManager {
     public class Program {
+        [STAThread]
         static void Main(string[] args) {
+            App app = new App();
+            app.MainWindow = new MainWindow();
+            app.MainWindow.Show();
+
             RunDbExample();
 
             string filePath = Path.GetFullPath(@"..\..\..\..\ExcelReader\Resources\Kanji Sheet Sample.xlsx");
